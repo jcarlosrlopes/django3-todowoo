@@ -1,0 +1,23 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+
+    Current Todos
+    <ul>
+    {% for todo in todos %}
+        <li>
+            {% if todo.important %}
+                <b>{{ todo.title }}
+            {% else %}
+                {{ todo.title }}
+            {% endif %}
+            <a href="{% url 'viewtodo' todo.id %}">Edit</a>
+            <form action="{% url 'deletetodo' todo.id %}" method='POST'>
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}

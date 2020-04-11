@@ -1,0 +1,24 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+
+    Current Todos
+    <ul>
+    {% for todo in todos %}
+        <li>
+            {% if todo.important %}
+                <b>{{ todo.title }}</b>
+            {% else %}
+                {{ todo.title }}
+            {% endif %}
+            - Completed: {{ todo.date_completed|date:'d/m/Y H:i' }}
+            {% comment %} <a href="{% url 'viewtodo' todo.id %}">Edit</a> {% endcomment %}
+            <form action="{% url 'deletetodo' todo.id %}" method='POST'>
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}
